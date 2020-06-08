@@ -4,5 +4,11 @@
   "description": "This is template app that could be used as a boostrap for SSR app. It takes only one command to upload app to heroku and see it in production",
   "main": "index.js",
   "author": "Artur Ingelevic <arturas.ingelevic@shopify.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1"
+  }
 }
