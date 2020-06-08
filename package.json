@@ -1,0 +1,8 @@
+{
+  "name": "react-template-app",
+  "version": "0.0.1",
+  "description": "This is template app that could be used as a boostrap for SSR app. It takes only one command to upload app to heroku and see it in production",
+  "main": "index.js",
+  "author": "Artur Ingelevic <arturas.ingelevic@shopify.com>",
+  "license": "MIT"
+}
