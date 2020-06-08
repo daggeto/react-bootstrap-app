@@ -7,7 +7,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const babelOptions = {
   presets: ["@babel/env"],
-  plugins: [isDevelopment && require.resolve('react-refresh/babel')]
+  plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
 }
 
 module.exports = {
@@ -63,5 +63,5 @@ module.exports = {
     publicPath: "http://localhost:3000/dist/",
     hotOnly: isDevelopment
   },
-  plugins: [isDevelopment && new ReactRefreshWebpackPlugin()]
+  plugins: [isDevelopment && new ReactRefreshWebpackPlugin()].filter(Boolean)
 }
