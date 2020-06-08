@@ -5,19 +5,38 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
+const babelOptions = {
+  presets: ["@babel/env"],
+  plugins: [isDevelopment && require.resolve('react-refresh/babel')]
+}
+
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   mode: isDevelopment ? 'development' : 'production',
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: {
-          presets: ["@babel/env"],
-          plugins: [isDevelopment && require.resolve('react-refresh/babel')]
-        }
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: babelOptions
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -25,7 +44,7 @@ module.exports = {
       }
     ]
   },
-  resolve: { extensions: ["*", ".js", ".jsx"] },
+  resolve: { extensions: ["*", '.tsx', '.ts', ".js", "index.ts"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/dist/",
