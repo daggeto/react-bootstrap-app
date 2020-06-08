@@ -5,7 +5,12 @@
   "main": "index.js",
   "author": "Artur Ingelevic <arturas.ingelevic@shopify.com>",
   "license": "MIT",
+  "engines": {
+    "node": "14.4.0"
+  },
   "scripts": {
+    "start": "",
+    "build": "webpack -p",
     "run:dev": "npx webpack-dev-server --mode development"
   },
   "dependencies": {
