@@ -64,4 +64,4 @@ module.exports = {
     hotOnly: isDevelopment
   },
   plugins: [isDevelopment && new ReactRefreshWebpackPlugin()]
-};
+}
