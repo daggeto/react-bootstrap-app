@@ -1,4 +1,5 @@
 import React from 'react';
+import './Frame.scss';
 
 interface Props {
   title: string;
@@ -6,5 +7,5 @@ interface Props {
 }
 
 export function Frame({title, children}: Props) {
-  return <div className='Frame'>{[children]}</div>;
+  return <div className="Frame">{[children]}</div>;
 }
