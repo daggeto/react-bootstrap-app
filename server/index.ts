@@ -1,20 +1,7 @@
 import Koa from 'koa';
-import webpackDevMiddleware from 'koa-webpack-dev-middleware';
-import webpack from 'webpack';
 import server from 'koa-static';
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
-
 const app = new Koa();
-
-if (isDevelopment) {
-  const config = require('../webpack.server-prod.js');
-  const compiler = webpack(config);
-
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-  }));
-}
 
 app.use(server('./public'));
 
