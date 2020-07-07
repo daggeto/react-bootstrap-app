@@ -8,10 +8,17 @@
   "engines": {
     "node": "14.4.0"
   },
+  "watch": {
+    "build-server": "./server/index.ts"
+  },
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p",
-    "run:dev": "webpack-dev-server --mode development"
+    "start": "node dist/bundle-server.js",
+    "build-server": "webpack --config webpack.server-prod.js",
+    "build-client": "webpack --config webpack.prod.js",
+    "build": "yarn build-client && yarn build-server",
+    "run:dev": "webpack-dev-server --config webpack.dev.js",
+    "run:dev-server": "nodemon --watch dist dist/bundle-server.js",
+    "watch": "npm-watch"
   },
   "dependencies": {
     "@babel/cli": "^7.10.1",
@@ -20,24 +27,31 @@
     "@babel/preset-react": "^7.10.1",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "koa": "^2.12.0",
+    "koa-static": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "sass": "^1.26.8",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "^8.0.2",
+    "ts-node": "^8.10.2"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",
+    "@types/node": "^14.0.18",
     "@types/webpack": "^4.41.17",
     "babel-loader": "^8.1.0",
     "babel-minify-webpack-plugin": "^0.3.1",
     "css-loader": "^3.5.3",
+    "koa-webpack-dev-middleware": "^2.0.2",
     "react-refresh": "^0.8.3",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
     "type-fest": "^0.13.1"

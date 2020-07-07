@@ -1,17 +1,22 @@
-
 const path = require("path");
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const isDevelopment = process.env.NODE_ENV !== 'production';
-console.log(process.env.NODE_ENV)
+
+const nodeExternals = require('webpack-node-externals');
+
 const babelOptions = {
   presets: ["@babel/env"],
-  plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
 }
 
 module.exports = {
-  entry: "./src/index.tsx",
-  mode: isDevelopment ? 'development' : 'production',
+  target: "node",
+  mode: 'development',
+  entry: "./server/index.ts",
+  devtool: "source-map",
+  devServer: {
+    contentBase: path.join(__dirname, "public/"),
+    port: 8080,
+    publicPath: "http://localhost:8080/",
+  },
+  externals: [ nodeExternals() ],
   module: {
     rules: [
       {
@@ -53,17 +58,13 @@ module.exports = {
   resolve: { extensions: ["*", '.tsx', '.ts', ".js", "index.ts"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
-    filename: "bundle.js"
+    publicPath: '/',
+    filename: "bundle-server.js"
   },
-  devServer: {
-    contentBase: path.join(__dirname, "public/"),
-    port: 3000,
-    publicPath: "http://localhost:3000/dist/",
-    hotOnly: isDevelopment
-  },
-  plugins: [
-    isDevelopment && new ReactRefreshWebpackPlugin(),
-    new MinifyPlugin()
-  ].filter(Boolean)
+  plugins: [],
+  node: {
+    fs: 'empty',
+    net: 'empty'
+  }
 }
+
