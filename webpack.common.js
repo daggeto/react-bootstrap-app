@@ -2,11 +2,11 @@
 const path = require("path");
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const MinifyPlugin = require("babel-minify-webpack-plugin");
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const babelOptions = {
-  presets: ["@babel/env"],
-  plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
+  plugins: [].filter(Boolean)
 }
 
 module.exports = {
@@ -59,10 +59,13 @@ module.exports = {
     contentBase: path.join(__dirname, "public/"),
     port: 3000,
     publicPath: "http://localhost:3000/",
-    hotOnly: isDevelopment
+    hot: true,
   },
   plugins: [
-    isDevelopment && new ReactRefreshWebpackPlugin(),
-    new MinifyPlugin()
+    // isDevelopment && new ReactRefreshWebpackPlugin(),
+    new MinifyPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
   ].filter(Boolean)
 }

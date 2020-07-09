@@ -3,12 +3,11 @@ const path = require("path");
 const nodeExternals = require('webpack-node-externals');
 
 const babelOptions = {
-  presets: ["@babel/env"],
 }
 
 module.exports = {
   target: "node",
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: "./server/index.ts",
   devtool: "source-map",
   devServer: {
