@@ -4,12 +4,15 @@ import webpack from 'webpack';
 import webpackMiddleware from 'koa-webpack-dev-middleware';
 import Router from 'koa-router';
 import koaBody from 'koa-body';
+import koaProxy from 'koa-better-http-proxy';
 import devWebpackConfig from '../webpack.dev';
 import axios from 'axios';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const app = new Koa();
+app.proxy = true;
+
 const router = new Router();
 
 if(isDevelopment) {
@@ -46,17 +49,15 @@ if(isDevelopment) {
   app.use(serve('./public'));
 }
 
-  router.post('/api', koaBody(), async (ctx: Context) => {
-    console.log("Headers cookie: ", ctx.headers.cookie);
-    const res = await axios.get('http://graphql-app.io:4000/cookies', {
-      headers: ctx.headers,
-      withCredentials: true
-    });
+const apiRouter = new Router();
+apiRouter.post('/', koaProxy('http://graphql-app.io:4000', {
+  port: 4000,
+  proxyReqPathResolver() {
+    return '/cookies';
+  },
+}));
 
-    console.log('Response header:', res.headers);
-    ctx.set('set-cookie', res.headers["set-cookie"]);
-    ctx.body = {success: 'ok'};
-  });
+router.use('/api', apiRouter.routes(), apiRouter.allowedMethods());
 
 app
   .use(router.routes())
