@@ -22,12 +22,16 @@
     "watch": "npm-watch"
   },
   "dependencies": {
+    "@apollo/client": "^3.1.1",
+    "@apollo/react-hooks": "^4.0.0",
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/runtime": "^7.10.4",
+    "@types/graphql": "^14.5.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.19.2",
+    "graphql": "^15.3.0",
     "html-webpack-plugin": "^4.3.0",
     "koa": "^2.12.0",
     "koa-better-http-proxy": "^0.2.4",

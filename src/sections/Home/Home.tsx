@@ -1,19 +1,27 @@
-import React, {useCallback} from 'react';
-import axios from "axios";
-export function Home() {
-  const sendRequest = useCallback(async () => {
-    const result = await axios.post('/api', {
-      params: {
-        one: "one"
-      }
-    });
+import React from 'react';
+import { useQuery, gql } from '@apollo/client';
 
-    console.log(result);
-  }, []);
+const HELLO_QUERY = gql`
+  query Users {
+    users {
+      id
+      email
+    }
+  }
+`;
+
+export function Home() {
+
+  const { loading, error, data } = useQuery(HELLO_QUERY);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  console.log('GQL data: ', data);
 
   return (
     <div className='App'>
-      <button onClick={sendRequest}> Send Requests </button>
+      <button > Send Requests </button>
     </div>
   );
 }

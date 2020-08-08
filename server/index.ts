@@ -1,12 +1,10 @@
-import Koa, {Context} from 'koa';
+import Koa from 'koa';
 import serve from 'koa-static';
 import webpack from 'webpack';
 import webpackMiddleware from 'koa-webpack-dev-middleware';
 import Router from 'koa-router';
-import koaBody from 'koa-body';
 import koaProxy from 'koa-better-http-proxy';
 import devWebpackConfig from '../webpack.dev';
-import axios from 'axios';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -53,7 +51,7 @@ const apiRouter = new Router();
 apiRouter.post('/', koaProxy('http://graphql-app.io:4000', {
   port: 4000,
   proxyReqPathResolver() {
-    return '/cookies';
+    return '/graphql';
   },
 }));
 
