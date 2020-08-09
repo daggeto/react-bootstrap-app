@@ -45,17 +45,17 @@
     "sass": "^1.26.8",
     "sass-loader": "^8.0.2",
     "ts-node": "^8.10.2",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "babel-minify-webpack-plugin": "^0.3.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.1",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0Fv.3.3",
     "@types/node": "^14.0.18",
     "@types/webpack": "^4.41.17",
     "babel-loader": "^8.1.0",
-    "babel-minify-webpack-plugin": "^0.3.1",
     "css-loader": "^3.5.3",
     "npm-watch": "^0.6.0",
     "react-refresh": "^0.8.3",
