@@ -5,6 +5,7 @@ import webpackMiddleware from 'koa-webpack-dev-middleware';
 import Router from 'koa-router';
 import koaProxy from 'koa-better-http-proxy';
 import devWebpackConfig from '../webpack.dev';
+import {API_URL} from '../config';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -48,8 +49,7 @@ if(isDevelopment) {
 }
 
 const apiRouter = new Router();
-apiRouter.post('/', koaProxy('http://graphql-app.io:4000', {
-  port: 4000,
+apiRouter.post('/', koaProxy(API_URL, {
   proxyReqPathResolver() {
     return '/graphql';
   },
