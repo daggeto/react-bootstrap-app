@@ -5,7 +5,7 @@ import webpackMiddleware from 'koa-webpack-dev-middleware';
 import Router from 'koa-router';
 import koaProxy from 'koa-better-http-proxy';
 import devWebpackConfig from '../webpack.dev';
-import {API_URL} from '../config';
+import {API_URL} from '../config/server';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
