@@ -1,27 +1,22 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-
-const HELLO_QUERY = gql`
-  query Users {
-    users {
-      id
-      email
-    }
-  }
-`;
+import { useUsersQuery } from "../../generated/graphql";
 
 export function Home() {
 
-  const { loading, error, data } = useQuery(HELLO_QUERY);
+  const { loading, error, data } = useUsersQuery();;
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (error || !data) return <p>Error :(</p>;
 
   console.log('GQL data: ', data);
 
   return (
     <div className='App'>
-      <button > Send Requests </button>
+      {data.users.length == 0 ? (
+        'No users'
+      ) : (
+        <button> {data.users[0].email} </button>
+      )}
     </div>
   );
 }
