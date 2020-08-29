@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import {Frame} from './foundation';
-import {Home} from './sections/Home';
+import { Routes } from "./Routes";
 
 export function App() {
   const client = new ApolloClient({
@@ -12,7 +12,7 @@ export function App() {
   return (
     <ApolloProvider client={client}>
       <Frame title='React Bootstrap App'>
-        <Home />
+        <Routes />
       </Frame>
     </ApolloProvider>
   );

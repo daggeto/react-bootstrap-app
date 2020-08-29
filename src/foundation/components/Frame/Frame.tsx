@@ -7,5 +7,9 @@ interface Props {
 }
 
 export function Frame({title, children}: Props) {
-  return <div className="Frame">{[children]}</div>;
+  return (
+    <div className='Frame'>
+      {children}
+    </div>
+  );
 }

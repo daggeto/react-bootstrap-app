@@ -47,6 +47,7 @@ if(isDevelopment) {
 } else {
   app.use(serve('./public'));
 }
+console.log("API_URL", API_URL)
 
 const apiRouter = new Router();
 apiRouter.post('/', koaProxy(API_URL, {
