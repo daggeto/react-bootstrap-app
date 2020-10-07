@@ -4,10 +4,16 @@ const path = require("path");
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const webpack = require('webpack');
 
 const babelOptions = {
   plugins: [].filter(Boolean)
 }
+
+const envKeys = Object.keys(process.env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(process.env[next]);
+  return prev;
+}, {});
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -78,6 +84,7 @@ module.exports = {
     !isDevelopment && new MinifyPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    })
+    }),
+    new webpack.DefinePlugin(envKeys)
   ].filter(Boolean)
 }

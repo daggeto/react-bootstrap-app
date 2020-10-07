@@ -8,7 +8,6 @@ export function Home() {
 
   if (loading) return <p>Loading...</p>;
   if (error || !data) return <p>Error :(</p>;
-
   console.log('GQL dataa: ', data);
   const users = data.users.length == 0 ? 'No users' : data.users.map((user) => {
     return <li key={user.id}>Email: {user.email}</li>
