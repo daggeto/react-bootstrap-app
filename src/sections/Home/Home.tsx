@@ -10,10 +10,13 @@ export function Home() {
   if (error || !data) return <p>Error :(</p>;
 
   console.log('GQL dataa: ', data);
+  const users = data.users.length == 0 ? 'No users' : data.users.map((user) => {
+    return <li key={user.id}>Email: {user.email}</li>
+  });
 
   return (
     <div className='App'>
-      {data.users.length == 0 ? 'No users' : data.users[0].email}
+      <ul>{users || '-'}</ul>
     </div>
   );
 }

@@ -58,6 +58,15 @@ apiRouter.post('/', koaProxy(API_URL, {
 
 router.use('/api', apiRouter.routes(), apiRouter.allowedMethods());
 
+const refreshTokenRouter = new Router();
+refreshTokenRouter.post('/', koaProxy(API_URL, {
+  proxyReqPathResolver() {
+    return '/refresh_token';
+  },
+}));
+
+router.use('/refresh_token', refreshTokenRouter.routes(), refreshTokenRouter.allowedMethods());
+
 app
   .use(router.routes())
   .use(router.allowedMethods());
