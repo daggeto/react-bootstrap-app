@@ -32,7 +32,7 @@ export function Header() {
     <header>
       <div className='Nav'>
         <div className='Link'>
-          <Link to='/'>Home</Link>
+          <Link to='/'>Homess</Link>
         </div>
         <div className='Link'>
           <Link to='/registration'>Register</Link>

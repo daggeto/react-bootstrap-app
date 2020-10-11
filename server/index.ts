@@ -1,53 +1,38 @@
 import Koa from 'koa';
+import fs from 'fs';
+import path from 'path';
 import serve from 'koa-static';
-import webpack from 'webpack';
-import webpackMiddleware from 'koa-webpack-dev-middleware';
 import Router from 'koa-router';
 import koaProxy from 'koa-better-http-proxy';
-import devWebpackConfig from '../webpack.dev';
 import {API_URL} from '../config/server';
+import {rejects} from 'assert';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const app = new Koa();
 app.proxy = true;
 
+app.use(serve('./public'));
+
 const router = new Router();
+router.get(/^\/*/, async (ctx) => {
+  await new Promise((resolve, reject) => {
+    fs.readFile(path.resolve('./public/index.html'), 'utf-8', (error, data) => {
+      if (error) {
+        ctx.status = 500;
+        ctx.body = "Couldn't find index.html";
 
-if(isDevelopment) {
-  const compiler = webpack(devWebpackConfig);
-  app.use(webpackMiddleware(compiler), {
-    noInfo: false,
-    // display no info to console (only warnings and errors)
+        return reject(error);
+      }
 
-    quiet: false,
-    // display nothing to the console
+      ctx.body = data;
 
-    lazy: true,
-    // switch into lazy mode
-    // that means no watching, but recompilation on every request
-
-    publicPath: "/",
-    // public path to bind the middleware to
-    // use the same as in webpack
-
-    headers: { "X-Custom-Header": "yes" },
-    // custom headers
-
-    stats: {
-        colors: true
-    }
+      resolve();
+    });
   });
 
-  router.get('/', (ctx) => {
-    console.log('Static');
-    ctx.body = ctx.webpack.fileSystem.readFileSync('/index.html');
-  });
-
-} else {
-  app.use(serve('./public'));
-}
-console.log("API_URL", API_URL)
+  console.log('After file system');
+});
 
 const apiRouter = new Router();
 apiRouter.post('/', koaProxy(API_URL, {

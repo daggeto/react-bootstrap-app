@@ -9,7 +9,7 @@
     "node": "14.4.0"
   },
   "watch": {
-    "build:server": "./server/index.ts"
+    "build:client": "./src/*/**.js"
   },
   "scripts": {
     "start": "node dist/bundle-server.js",
