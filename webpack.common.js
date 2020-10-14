@@ -56,11 +56,6 @@ module.exports = {
     ]
   },
   resolve: { extensions: ["*", '.tsx', '.ts', ".js", "index.ts"] },
-  output: {
-    path: path.resolve(__dirname, "public/"),
-    publicPath: "/",
-    filename: "bundle.js"
-  },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     port: 8080,
@@ -83,7 +78,8 @@ module.exports = {
     // isDevelopment && new ReactRefreshWebpackPlugin(),
     !isDevelopment && new MinifyPlugin(),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
+      filename: 'template.html'
     }),
     new webpack.DefinePlugin(envKeys)
   ].filter(Boolean)

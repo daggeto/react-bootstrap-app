@@ -4,9 +4,13 @@ import path from 'path';
 import serve from 'koa-static';
 import Router from 'koa-router';
 import koaProxy from 'koa-better-http-proxy';
-import {API_URL} from '../config/server';
-import {rejects} from 'assert';
+import send from 'koa-send';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
+import {App} from '../src/App';
+
+import {API_URL} from '../config/server';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const app = new Koa();
@@ -15,9 +19,9 @@ app.proxy = true;
 app.use(serve('./public'));
 
 const router = new Router();
-router.get(/^\/*/, async (ctx) => {
+router.get(/^\/?.*?/, async (ctx) => {
   await new Promise((resolve, reject) => {
-    fs.readFile(path.resolve('./public/index.html'), 'utf-8', (error, data) => {
+    fs.readFile(path.resolve('./public/template.html'), 'utf-8', (error, data) => {
       if (error) {
         ctx.status = 500;
         ctx.body = "Couldn't find index.html";
@@ -25,13 +29,13 @@ router.get(/^\/*/, async (ctx) => {
         return reject(error);
       }
 
-      ctx.body = data;
+      // const app = ReactDOMServer.renderToString(React.createElement(App));
+      const body = data.replace('<div id="root"></div>', `<div id="root"></div>`);
+      ctx.body = body;
 
       resolve();
     });
   });
-
-  console.log('After file system');
 });
 
 const apiRouter = new Router();
