@@ -17,5 +17,6 @@
     "sourceMap": true,
     "moduleResolution": "node",
   },
+  "include": ["types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }
