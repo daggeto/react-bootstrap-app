@@ -8,7 +8,7 @@ const babelOptions = {
 module.exports = {
   target: "node",
   mode: process.env.NODE_ENV,
-  entry: "./server/index.ts",
+  entry: "./server/index.tsx",
   devtool: "source-map",
   devServer: {
     contentBase: path.join(__dirname, "public/"),
